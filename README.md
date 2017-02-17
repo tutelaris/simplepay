@@ -1,10 +1,10 @@
-## 1
+## 1 Install gem 
 
 gem 'simplepay', :git => "git://github.com/SeNaP/simplepay.git"
 
 bundle install
 
-## 2
+## 2 Create configurate file
 
 Create simplepay.rb file in /config/initializers/
 
