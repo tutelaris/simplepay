@@ -19,10 +19,10 @@ module Simplepay
 			self.secret_key 			= "secret_key"
 			self.secret_key_for_result	= "secret_key_for_result"
 
-			self.success_callback = ->(notification) { render text: 'success' }
-		    self.fail_callback    = ->(notification) { render text: 'fail' }
+			self.success_callback = ->(notification) { render json: notification.success }
+		    self.fail_callback    = ->(notification) {render json: notification.fail }
 		    self.result_callback  = ->(notification) do
-		    	render text: notification.success
+		    	render json: notification.success
 		    end
 		end
 		
