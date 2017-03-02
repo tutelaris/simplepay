@@ -19,7 +19,7 @@ module Simplepay
 				sp_salt: SecureRandom.urlsafe_base64
 			}
 
-			response[:sp_sig] = Simplepay::SignatureGenerator::generate(response)
+			response[:sp_sig] = Simplepay::SignatureGenerator::generate_response(response)
 
 			response
 		end
@@ -31,7 +31,7 @@ module Simplepay
 				sp_salt: SecureRandom.urlsafe_base64
 			}
 
-			response[:sp_sig] = Simplepay::SignatureGenerator::generate(response)
+			response[:sp_sig] = Simplepay::SignatureGenerator::generate_response(response)
 
 			response
 		end
