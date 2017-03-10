@@ -6,22 +6,22 @@ module Simplepay
 			@params = HashWithIndifferentAccess.new(params)
 		end
 
-		def valid_signature?
+		def valid_signature?(script)
 			p @params[:sp_sig]
-			p Simplepay::SignatureGenerator::generate_response(@params)
-			@params[:sp_sig] == Simplepay::SignatureGenerator::generate_response(@params)
+			p Simplepay::SignatureGenerator::generate_response(@params, script)
+			@params[:sp_sig] == Simplepay::SignatureGenerator::generate_response(@params, script)
 		end
 
 		def success
 			response = {
 				sp_status: "ok",
-				sp_description: "Товар передан покупалтелю",
+				sp_description: "Товар передан покупателю",
 				sp_salt: SecureRandom.urlsafe_base64
 			}
 
 			response[:sp_sig] = Simplepay::SignatureGenerator::generate_response(response)
 
-			response
+			response.to_xml(:root => "response", :dasherize => false)
 		end
 
 		def fail
@@ -33,7 +33,19 @@ module Simplepay
 
 			response[:sp_sig] = Simplepay::SignatureGenerator::generate_response(response)
 
-			response
+			response.to_xml(:root => "response", :dasherize => false)
+		end
+
+		def reject
+			response = {
+				sp_status: "reject",
+				sp_description: "Отказ от платежа",
+				sp_salt: SecureRandom.urlsafe_base64
+			}
+
+			response[:sp_sig] = Simplepay::SignatureGenerator::generate_response(response)
+
+			response.to_xml(:root => "response", :dasherize => false)
 		end
 
 	end
