@@ -30,7 +30,11 @@ class SimplepayController < ApplicationController
 
 
 	def create_notification
-		@notification = Simplepay::Notification.new request.query_parameters
+		if request.get?
+		  @notification = Simplepay::Notification.new request.query_parameters
+		elsif request.post?
+		  @notification = Simplepay::Notification.new request.request_parameters
+		end
 	end
 
 end
