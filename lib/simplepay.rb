@@ -20,7 +20,7 @@ module Simplepay
 	end
 
 	def get_secret_key(is_result)
-		is_result? ? Simplepay.secret_key_for_result : Simplepay.secret_key
+		is_result ? Simplepay.secret_key_for_result : Simplepay.secret_key
 	end
 
 
