@@ -17,7 +17,7 @@ module Simplepay
         sorted_params_values = params.sort.to_h.values
         sorted_params_values.unshift(action)
         sorted_params_values.push(secret_key)
-        md5(sorted_params_values)
+        md5(sorted_params_values.join(";"))
       end
 
       private
