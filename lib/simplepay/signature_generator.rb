@@ -1,30 +1,44 @@
 module Simplepay
-	module SignatureGenerator
-		
-		def self.generate_request(data)
-			data = data.sort
-			data.unshift([:script, 'init_payment'])
-			data.push([:secret_key, Simplepay.secret_key])
-			data = data.to_h.values.join(";")
-			self.md5(data)
-		end
+  class SignatureGenerator < ::Rails::Engine
+    class << self
+      attr_accessor :params
+      
+      def generate(params)
+        @params = params
+        action = params["action"]
+        delete_rails_params(params)
+        action = 
+          if params_for_result?
+            params.delete("sp_sig") 
+            params["action"]
+          else
+            "init_payment"
+          end
+        sorted_params_values = params.sort.to_h.values
+        sorted_params_values.unshift(action)
+        sorted_params_values.push(secret_key)
+        md5(params_values)
+      end
 
-		def self.generate_response(data, script = 'result')
-			data.delete(:sp_sig) #delete sp_sig if this params exists
-			data = data.sort
-			#data.pop if script != "result" # drop sp_sig param if result request
-			data.unshift([:script, script]) 
-			data.push([:secret_key, Simplepay.secret_key_for_result])
-			data = data.to_h
-			data = data.values.join(";")
-			self.md5(data)
-		end
+      private
 
-		protected
+      def delete_rails_params
+        params.delete("action")
+        params.delete("controller")
+      end
 
-	    def self.md5(data)
-	      Digest::MD5.hexdigest data
-	    end
-	end
+      def secret_key
+        Simplepay.get_secret_key(params_for_result?)
+      end
+
+      def params_for_result?
+        params["sp_result"].to_i == 1
+      end
+
+
+      def md5(data)
+        Digest::MD5.hexdigest(data)
+      end
+    end
+  end
 end
-

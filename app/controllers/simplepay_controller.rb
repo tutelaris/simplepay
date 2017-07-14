@@ -4,7 +4,7 @@ class SimplepayController < ApplicationController
 	before_action :create_notification
 
 	def result
-		if @notification.valid_signature?('result')
+		if @notification.valid_signature?
 			instance_exec @notification, &Simplepay.result_callback
 		else
 			instance_exec @notification, &Simplepay.fail_callback
@@ -13,7 +13,7 @@ class SimplepayController < ApplicationController
 	end
 
 	def success
-		if @notification.valid_signature?('success')
+		if @notification.valid_signature?
 			instance_exec @notification, &Simplepay.success_callback
 		else
 			instance_exec @notification, &Simplepay.fail_callback

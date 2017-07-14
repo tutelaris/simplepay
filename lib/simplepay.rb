@@ -19,9 +19,12 @@ module Simplepay
 	    end
 	end
 
+	def get_secret_key(is_result)
+		is_result? ? Simplepay.secret_key_for_result : Simplepay.secret_key
+	end
+
 
 	def payment_url(sp_amount, sp_description, sp_order_id)
 		Simplepay::Client.get_url(sp_amount, sp_description, sp_order_id)
 	end
-  
 end
