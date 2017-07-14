@@ -34,7 +34,7 @@ module Simplepay
 				param[name] = property if name =~ /^sp_/
 			end
 
-			param[:sp_sig] = Simplepay::SignatureGenerator::generate_request(param)
+			param[:sp_sig] = Simplepay::SignatureGenerator::generate(param)
 			param
 		end
 
