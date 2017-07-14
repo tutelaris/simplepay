@@ -6,7 +6,7 @@ module Simplepay
       def generate(params)
         @params = params
         action = params["action"]
-        delete_rails_params(params)
+        delete_rails_params
         action = 
           if params_for_result?
             params.delete("sp_sig") 
