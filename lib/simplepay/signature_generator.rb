@@ -1,5 +1,5 @@
 module Simplepay
-  class SignatureGenerator < ::Rails::Engine
+  class SignatureGenerator
     class << self
       attr_accessor :params
       
@@ -10,7 +10,7 @@ module Simplepay
         action = 
           if params_for_result?
             params.delete("sp_sig") 
-            params["action"]
+            "result"
           else
             "init_payment"
           end
