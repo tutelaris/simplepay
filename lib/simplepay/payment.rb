@@ -15,7 +15,8 @@ module Simplepay
 
 		private 
 		def self.request_to_api
-			request = RestClient.post "https://api.simplepay.pro/sp/init_payment", {sp_json: self.params.to_json}, {content_type: :json, accept: :json}
+			request = RestClient::Request.execute(method: "POST", url:"https://api.simplepay.pro/sp/init_payment", payload: {sp_json: self.params.to_json}, headers: {content_type: :json, accept: :json},:verify_ssl => false)
+			#request = RestClient.post "https://api.simplepay.pro/sp/init_payment", {sp_json: self.params.to_json}, {content_type: :json, accept: :json}
 			request.body
 		end
 
