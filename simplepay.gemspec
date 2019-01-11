@@ -6,12 +6,12 @@ require 'simplepay/version'
 Gem::Specification.new do |spec|
   spec.name          = "simplepay"
   spec.version       = Simplepay::VERSION
-  spec.authors       = ["senap"]
-  spec.email         = ["senap@bk.ru"]
+  spec.authors       = ["tutelaris"]
+  spec.email         = ["tutelaris@bk.ru"]
 
   spec.summary       = ""
   spec.description   = ""
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/tutelaris/simplepay"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
